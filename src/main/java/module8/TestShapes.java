@@ -8,16 +8,11 @@ public class TestShapes {
         Shape triangle = new RightTriangle(6.0, 9.0, "Brown");
         Shape square = new Square(8.0, "Purple");
 
-        System.out.println(rect);
-        System.out.println(circle);
-        System.out.println(ellipse);
-        System.out.println(triangle);
-        System.out.println(square);
-
-        System.out.println(rect.name());
-        System.out.println(circle.name());
-        System.out.println(ellipse.name());
-        System.out.println(triangle.name());
-        System.out.println(square.name());
+        ShapeName o = new ShapeName();
+        o.printShapeName(rect);
+        o.printShapeName(circle);
+        o.printShapeName(ellipse);
+        o.printShapeName(triangle);
+        o.printShapeName(square);
     }
 }
