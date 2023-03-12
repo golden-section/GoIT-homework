@@ -68,5 +68,31 @@ public class CollectionsTests {
         //Clear customArrayList using the clear() method
         customLinkedList.clear();
         System.out.println("customArrayList after clearing " + customLinkedList + "\n");
+
+
+        //Test MyLinkedList
+        MyQueue<String> customQueue = new MyQueue<>();
+
+        //Add 6 elements to customLinkedList using the add() method and check the size
+        for (int i = 1; i <= 6 ; i++) {
+            customQueue.add("Value-" + i);
+        }
+        System.out.println("customQueue: " + customQueue);
+        System.out.println("customQueue size is " + customQueue.size());
+
+        //Output the first element from the queue using the peek() method
+        System.out.println("customQueue 1-st element is " + customQueue.peek());
+        System.out.println("customQueue size is " + customQueue.size());
+
+        //Output the first element and remove it from the queue using the poll() method
+        System.out.println("customQueue 1-st and removed element is " + customQueue.poll());
+        System.out.println("customQueue 1-st and removed element is " + customQueue.poll());
+        System.out.println("customQueue size is " + customQueue.size());
+
+        //Clear queue using the clear() method
+        customQueue.clear();
+        System.out.println("customQueue after clearing " + customQueue + "\n");
+
     }
+
 }
