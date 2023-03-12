@@ -70,7 +70,7 @@ public class CollectionsTests {
         System.out.println("customArrayList after clearing " + customLinkedList + "\n");
 
 
-        //Test MyLinkedList
+        //Test MyQueue
         MyQueue<String> customQueue = new MyQueue<>();
 
         //Add 6 elements to customLinkedList using the add() method and check the size
@@ -92,6 +92,34 @@ public class CollectionsTests {
         //Clear queue using the clear() method
         customQueue.clear();
         System.out.println("customQueue after clearing " + customQueue + "\n");
+
+
+        //Test MyStack
+        MyStack<String> customStack = new MyStack<>();
+
+        //Add 6 elements to customStack using the push() method and check the size
+        for (int i = 1; i <= 6 ; i++) {
+            customStack.push("Value-" + i);
+        }
+        System.out.println("customStack: " + customStack);
+        System.out.println("customStack size is " + customStack.size());
+
+        //Output the first element from the stack using the peek() method
+        System.out.println("customStack 1-st element is " + customStack.peek());
+        System.out.println("customStack size is " + customStack.size());
+
+        //Remove the element by index 5
+        customStack.remove(5);
+        System.out.println("customStack with removed element by index 5 " + customStack);
+
+        //Output the first element and remove it from the stack using the poll() method
+        System.out.println("customStack 1-st and removed element is " + customStack.pop());
+        System.out.println("customStack 1-st and removed element is " + customStack.pop());
+        System.out.println("customStack size is " + customStack.size());
+
+        //Clear stack using the clear() method
+        customStack.clear();
+        System.out.println("customStack after clearing " + customStack + "\n");
 
     }
 
