@@ -6,6 +6,7 @@ public class MyStack<AnyType> {
     private int size;
     private Node<AnyType> first;
     private Node<AnyType> last;
+
     public void push(AnyType element){
         Node<AnyType> newNode = new Node<>(null, element, null);
         if(first == null) {
@@ -17,6 +18,7 @@ public class MyStack<AnyType> {
         }
         size++;
     }
+
     public void remove(int index){
         Objects.checkIndex(index, size);
         if(index == 0){
@@ -33,19 +35,23 @@ public class MyStack<AnyType> {
         }
         size--;
     }
+
     public void clear() {
         first = last = null;
         size = 0;
     }
+
     public int size() {
         return size;
     }
+
     public AnyType peek() {
         if(last == null) {
             throw new IndexOutOfBoundsException("Empty stack");
         }
         return last.data;
     }
+
     public AnyType pop() {
         if(last == null) {
             throw new IndexOutOfBoundsException("Empty stack");

@@ -5,6 +5,7 @@ public class MyQueue<AnyType> {
     private Node<AnyType> first;
     private Node<AnyType> last;
 
+
     public void add(AnyType value) {
         Node<AnyType> newNode = new Node<>(null, value, null);
         if(first == null) {
@@ -16,19 +17,23 @@ public class MyQueue<AnyType> {
         }
         size++;
     }
+
     public void clear() {
         first = last = null;
         size = 0;
     }
+
     public int size() {
         return size;
     }
+
     public AnyType peek() {
         if(first == null) {
             throw new IndexOutOfBoundsException("Empty queue");
         }
         return first.data;
     }
+
     public AnyType poll() {
         if(first == null) {
             throw new IndexOutOfBoundsException("Empty queue");
