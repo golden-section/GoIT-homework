@@ -58,17 +58,18 @@ public class MyQueue<AnyType> {
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
+        StringBuilder output = new StringBuilder("[");
+        if(first != null) {
         Node<AnyType> current = first;
-        output.append("[");
         for (int i = 0; i < size; i++) {
             output.append(current.data.toString());
-            if (size - 1 != i) {
+            if (size - 1 > i) {
                 output.append(", ");
             }
-            current = current.next;
-        }
-        output.append("]");
-        return output.toString();
+            if(current.next != null) {
+                current = current.next;
+            }
+        }}
+        return output.append("]").toString();
     }
 }

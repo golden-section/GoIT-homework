@@ -59,15 +59,13 @@ public class MyArrayList<AnyType> {
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
-        output.append("[");
+        StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             output.append(elements[i].toString());
-            if (size - 1 != i) {
+            if (size - 1 > i) {
                 output.append(", ");
             }
         }
-        output.append("]");
-        return output.toString();
+        return output.append("]").toString();
     }
 }

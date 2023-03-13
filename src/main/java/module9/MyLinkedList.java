@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class MyLinkedList<AnyType> {
     private int size;
-    private Node<AnyType> first;
-    private Node<AnyType> last;
+    private Node first;
+    private Node last;
 
     public void add(AnyType element){
-        Node<AnyType> newNode = new Node<>(null, element, null);
+        Node newNode = new Node(null, element, null);
         if(first == null) {
             first = last = newNode;
         } else {
-            newNode = new Node<>(last, element, null);
+            newNode = new Node(last, element, null);
             last.next = newNode;
             last = newNode;
         }
@@ -27,7 +27,7 @@ public class MyLinkedList<AnyType> {
                 last = null;
             }
         } else {
-            Node<AnyType> prevNode = getNodeByIndex(index).prev;
+            Node prevNode = getNodeByIndex(index).prev;
             prevNode.next = getNodeByIndex(index).next;
             if(index == size - 1) {
                 last = prevNode;
@@ -50,20 +50,20 @@ public class MyLinkedList<AnyType> {
         return getNodeByIndex(index).data;
     }
 
-    private Node<AnyType> getNodeByIndex(int index){
-        Node<AnyType> current = first;
+    private Node getNodeByIndex(int index){
+        Node current = first;
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
         return current;
     }
 
-     private static class Node<AnyType> {
+     private class Node {
          AnyType data;
-         Node<AnyType> next;
-         Node<AnyType> prev;
+         Node next;
+         Node prev;
 
-        public Node(Node<AnyType> prev, AnyType element, Node<AnyType> next) {
+        public Node(Node prev, AnyType element, Node next) {
             this.data = element;
             this.next = next;
             this.prev = prev;
@@ -72,17 +72,18 @@ public class MyLinkedList<AnyType> {
 
     @Override
     public String toString() {
-        StringBuilder output = new StringBuilder();
-        Node<AnyType> current = first;
-        output.append("[");
+        StringBuilder output = new StringBuilder("[");
+        if(first != null) {
+        Node current = first;
         for (int i = 0; i < size; i++) {
             output.append(current.data.toString());
-            if (size - 1 != i) {
+            if (size - 1 > i) {
                 output.append(", ");
             }
-            current = current.next;
-        }
-        output.append("]");
-        return output.toString();
+            if(current.next != null) {
+                current = current.next;
+            }
+        }}
+        return output.append("]").toString();
     }
 }
