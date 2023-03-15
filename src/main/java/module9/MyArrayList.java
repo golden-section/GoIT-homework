@@ -28,17 +28,27 @@ public class MyArrayList<AnyType> {
     // Removes an element by the index
     public void remove(int index) {
         Objects.checkIndex(index, size);
-        System.arraycopy(elements, index + 1, elements, index,size - index - 1);
-        size--;
-        if(size == 0) {
+        if(size == 1) {
+            size = 0;
             elements = new Object[DEFAULT_CAPACITY];
             return;
         }
-        Object[] tempArray = new Object[elements.length - 1];
+
+        if(index == size - 1) {
+            size--;
+            Object[] tempArray = new Object[size];
+            System.arraycopy(elements, 0, tempArray, 0, tempArray.length);
+            elements = tempArray;
+            return;
+        }
+
+        System.arraycopy(elements, index + 1, elements, index,size - index - 1);
+        size--;
+        Object[] tempArray = new Object[size];
         System.arraycopy(elements,0,tempArray,0,tempArray.length);
         elements = tempArray;
-
     }
+
     // Clears the collection
     public void clear() {
         size = 0;
