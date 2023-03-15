@@ -30,6 +30,14 @@ public class MyArrayList<AnyType> {
         Objects.checkIndex(index, size);
         System.arraycopy(elements, index + 1, elements, index,size - index - 1);
         size--;
+        if(size == 0) {
+            elements = new Object[DEFAULT_CAPACITY];
+            return;
+        }
+        Object[] tempArray = new Object[elements.length - 1];
+        System.arraycopy(elements,0,tempArray,0,tempArray.length);
+        elements = tempArray;
+
     }
     // Clears the collection
     public void clear() {
