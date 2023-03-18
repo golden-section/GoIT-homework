@@ -6,12 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class PhoneValidatorTest {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String phonePattern = "^((\\d{3})-(\\d{3})|(\\(\\d{3}\\)) (\\d{3}))-(\\d{4})$";
-        File inputFile = new File("file.txt");
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        File inputFile = new File("./files/file.txt");
 
-        PhoneValidator phoneNumbers = new PhoneValidator(reader, phonePattern);
-        System.out.println(phoneNumbers.getValidated());
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            PhoneValidator phoneNumbers = new PhoneValidator(reader, phonePattern);
+            reader.close();
+            System.out.println(phoneNumbers.getValidated());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
