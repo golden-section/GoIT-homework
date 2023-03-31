@@ -92,6 +92,41 @@ public class HttpUtilities {
     }
 
     public static void getLastPostCommentsByUserId(int userId) throws IOException, InterruptedException {
+        List<Post> posts = getPostList(userId);
+        int maxPostId = getMaxPostId(posts);
+        HttpResponse<String> comments = getStringOfCommentsByPostId(maxPostId);
+
+        writeCommentsToFile(userId, maxPostId, comments);
+    }
+
+    private static void writeCommentsToFile(int userId, int postId, HttpResponse<String> comments) {
+        File file = new File(String.format("./files/user-%d-post-%d-comments.json", userId, postId));
+        try {
+            Writer writer = new FileWriter(file);
+            writer.write(comments.body());
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static HttpResponse<String> getStringOfCommentsByPostId(int postId) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(String.format("%s/%d/comments", POSTS_URL, postId)))
+                .GET()
+                .header("Content-type", "application/json")
+                .build();
+        return CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+    }
+
+    private static int getMaxPostId(List<Post> posts) {
+        return posts.stream()
+                .mapToInt(Post::getId)
+                .max()
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    private static List<Post> getPostList(int userId) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(String.format("%s/%d/posts", USERS_URL, userId)))
                 .GET()
@@ -99,27 +134,7 @@ public class HttpUtilities {
                 .build();
         HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
 
-        List<Post> posts = GSON.fromJson(response.body(), new TypeToken<List<Post>>() {}.getType());
-        int maxPostId = posts.stream()
-                .mapToInt(Post::getId)
-                .max()
-                .orElseThrow(NoSuchElementException::new);
-
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(String.format("%s/%d/comments", POSTS_URL, maxPostId)))
-                .GET()
-                .header("Content-type", "application/json")
-                .build();
-        response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-
-        File file = new File(String.format("./files/user-%d-post-%d-comments.json", userId, maxPostId));
-        try {
-            Writer writer = new FileWriter(file);
-            writer.write(response.body());
-            writer.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        return GSON.fromJson(response.body(), new TypeToken<List<Post>>() {}.getType());
     }
 
     public static List<Todos> getUncompletedTodosByUserId(int userId) throws IOException, InterruptedException {
